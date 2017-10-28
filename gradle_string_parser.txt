@@ -1,0 +1,14 @@
+
+//build.gradle
+task parseString {
+    ext.srcFile = file('app/src/main/res/values/strings.xml')
+
+    def strings = new XmlSlurper().parse(srcFile)
+    def file1 = new File('stringValues.txt')
+    def file2 = new File('stringNames.txt')
+
+    strings.string.each{
+        file1 << it.text() << "\n"  // or /* file2 << it[0] << "\n"*/
+        file2 << it.@'name' << "\n"
+    }
+}
